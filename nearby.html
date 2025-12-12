@@ -1,0 +1,481 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nearby Hospitals - STAR</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<!-- Routing Machine CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f0f8ff;
+}
+
+/* Navbar */
+nav {
+    width: 100%;
+    background: #1e90ff;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin: 20px 0;
+    color: #1e90ff;
+}
+
+p.instructions {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+
+/* WEATHER POPUP BOX */
+#weatherPopup {
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    width: 250px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-left: 5px solid #1e90ff;
+    display: none;
+    z-index: 9999;
+}
+#weatherPopup h3 {
+    margin-top: 0;
+    color: #1e90ff;
+    font-size: 20px;
+}
+#weatherPopup button {
+    background: #1e90ff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Map */
+#map {
+    height: 60vh;
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Search */
+#inputDiv {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#inputDiv input {
+    padding: 8px;
+    width: 220px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 8px;
+}
+#inputDiv button {
+    padding: 8px 12px;
+    background: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#inputDiv button:hover {
+    background: #0b3d91;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #1e90ff;
+    color: white;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    nav ul { flex-wrap: wrap; gap: 8px; }
+    #map { height: 55vh; width: 95%; }
+    #weatherPopup { width: 85%; right: 7%; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <span class="logo">STAR</span>
+    <ul>
+        <li><a href="nearby.html">Nearby Case Tracker</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="Faq.html">FAQ</a></li>
+        <li><a href="self_assessment.html">Online Assessment</a></li>
+        <li><a href="prediction.html">Prediction System</a></li>
+        <li><a href="contactus.html">Contact Us</a></li>
+    </ul>
+</nav>
+
+<!-- WEATHER POPUP -->
+<div id="weatherPopup">
+    <h3>🌤️ Weather Update</h3>
+    <div id="weatherContent">Fetching weather...</div>
+    <button onclick="closeWeather()">Close</button>
+</div>
+
+<h2>Nearby Hospitals</h2>
+<p class="instructions">
+    Your location is detected automatically. Nearby hospitals appear on the map.<br>
+    You can also *search a place* manually.
+</p>
+
+<!-- SEARCH -->
+<div id="inputDiv">
+    <input type="text" id="placeName" placeholder="Enter place name (e.g., Mandi)">
+    <button onclick="searchPlace()">Search Place</button>
+</div>
+
+<!-- MAP -->
+<div id="map"></div>
+
+<footer>&copy; 2025 STAR - Scrub Typhus Prediction System</footer>
+
+<!-- JS IMPORTS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script>
+let map = L.map('map');
+let userLat, userLon;
+let currentRoute = null;
+
+/* ------------------------------------
+   1) CUSTOM HOTSPOTS ADDED HERE
+--------------------------------------*/
+const customHotspots = [
+    {
+        name: "Kullu Diagnostic Center",
+        address: "Near Civil Hospital Kullu Red Cross Shops, Dhalpur, Kullu-175101",
+        contact: "07947116901",
+        lat: 32.15,
+        lon: 77.11
+    },
+    {
+        name: "Shiva Lab",
+        address: "Hospital Road, Dhalpur, Kullu-175101",
+        contact: "",
+        lat: 31.9545,
+        lon: 77.1118
+    },
+    {
+        name: "Sharma Laboratories",
+        address: "Opposite Regional Hospital, Dhalpur, Kullu-175101",
+        contact: "07947419755",
+        lat: 31.9567,
+        lon: 77.1116
+    },
+    {
+        name: "Ratocha Primary Health Sub Center",
+        address: "Ratocha Primary Health Sub Ctr, 38/95, Manali, Ratocha, Kullu-175125",
+        contact: "",
+        lat: 31.9384,
+        lon: 77.1960
+    },
+    {
+        name: "Sharma Clinical Lab X Ray and ECG",
+        address: "Sanjeev Medical Store, Near CHC Hospital, Sainj, Kullu-175134",
+        contact: "07947413144",
+        lat: 31.7869756,
+        lon: 77.3067507
+    },
+    {
+        name: "Kaya Diagnostics Sainj",
+        address: "Near PHC, Sainj, Kullu-175134",
+        contact: "",
+        lat: 31.77,
+        lon: 77.31
+    },
+    {
+        name: "Sri Hari Har Hospital Pvt Ltd",
+        address: "Behind Govt Hospital Kullu, Hathitan Bhunter 175125, Dhalpur, Kullu-175101",
+        contact: "01902-267666",
+        lat: 32.15,
+        lon: 77.11
+    },
+    {
+        name: "Medicure Path Lab",
+        address: "VPO Katrain, Near Main Chowk, Katrain NH3, Katrain, Kullu-175129",
+        contact: "07947150267",
+        lat: 32.10,
+        lon: 77.14
+    },
+    {
+        name: "Agilus Diagnostics (Kullu 1)",
+        address: "Kothi Himri, Gharoli, Neether, Kullu-172033",
+        contact: "09980655082",
+        lat: 31.371731,
+        lon: 77.518227
+    },
+    {
+        name: "Agilus Diagnostics (Manali)",
+        address: "Near PO Siyali Mahadev Market, Mall Road, Manali-175131",
+        contact: "09731978969",
+        lat: 32.24,
+        lon: 77.18
+    },
+    {
+        name: "Rawat Clinic",
+        address: "House No 104, Near BSNL Bhawan, Model Town, Manali-175131",
+        contact: "07947111022",
+        lat: 32.24,
+        lon: 77.19
+    },
+    {
+        name: "Kaya Diagnostics Patlikuhl",
+        address: "Bari, Near CHC, Patlikuhal, Kullu-175129",
+        contact: "07942688693",
+        lat: 32.17,
+        lon: 77.17
+    },
+    {
+        name: "Joshi Clinical Lab",
+        address: "Near Civil Hospital, Mall Road, Manali-175131",
+        contact: "07947148835",
+        lat: 32.24,
+        lon: 77.19
+    },
+    {
+        name: "Raghunath Diagnostics",
+        address: "College Gate, Dhalpur, Kullu-175101",
+        contact: "07947415292",
+        lat: 31.954,
+        lon: 77.112
+    },
+    {
+        name: "Kullu Valley Hospital",
+        address: "Near Puri Petrol Pump, NH 21, Shastri Nagar, Kullu-175101",
+        contact: "07942697417",
+        lat: 31.9427,
+        lon: 77.1090
+    },
+    {
+        name: "Bhanoo Hospital Pvt Ltd",
+        address: "Near Degree College Gate, New Friends Enclave, Kalehli, Dhalpur, Kullu-175101",
+        contact: "07942698096",
+        lat: 32.26,
+        lon: 77.18
+    },
+    {
+        name: "Hadimba Diagnostic Centre",
+        address: "Siyali Mahadev Mandir, Near Bus Stand, Siyal, Manali-175131",
+        contact: "07947419894",
+        lat: 32.24468,
+        lon: 77.18372
+    },
+    {
+        name: "Dr. Kanika's Ultrasound And Diagnostic Centre",
+        address: "Next LMS School & Regional Hospital, Dhalpur, Kullu-175101",
+        contact: "07947428625",
+        lat: 31.9545,
+        lon: 77.1118
+    },
+    {
+        name: "Ravi Diagnostic Center",
+        address: "Near Civil Hospital, Siyal, Kullu-175131",
+        contact: "07947108498",
+        lat: 31.88,
+        lon: 77.14
+    },
+    {
+        name: "Banga Diagnostics",
+        address: "Rambhag Chowk, Solang, Manali-175131",
+        contact: "",
+        lat: 32.24,
+        lon: 77.19
+    },
+    {
+        name: "Karishna Diagnostic Centre",
+        address: "Naggar Road, Patlikuhal, Kullu-175129",
+        contact: "07947152346",
+        lat: 32.10,
+        lon: 77.14
+    }
+];
+
+
+// Tiles
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'&copy; OpenStreetMap'
+}).addTo(map);
+
+// WEATHER FEATURE
+function getWeather(lat, lon) {
+    const weatherURL =
+        `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+
+    axios.get(weatherURL).then(res => {
+        if(res.data.current_weather){
+            const w = res.data.current_weather;
+            document.getElementById("weatherContent").innerHTML = `
+                🌡️ Temperature: <b>${w.temperature}°C</b><br>
+                💨 Wind Speed: <b>${w.windspeed} km/h</b><br>
+                📍 Lat: ${lat.toFixed(3)}, Lon: ${lon.toFixed(3)}
+            `;
+        }
+        document.getElementById("weatherPopup").style.display = "block";
+    });
+}
+
+function closeWeather() {
+    document.getElementById("weatherPopup").style.display = "none";
+}
+
+// USER LOCATION
+function locateUser() {
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                userLat = pos.coords.latitude;
+                userLon = pos.coords.longitude;
+
+                localStorage.setItem("userLat", userLat);
+                localStorage.setItem("userLon", userLon);
+
+                showUserLocation();
+                getWeather(userLat, userLon);
+            },
+            err => alert("Location failed! Search manually.")
+        );
+    }
+}
+
+function showUserLocation(){
+    map.setView([userLat, userLon], 13);
+
+    L.circle([userLat, userLon], {
+        radius:50, color:'green', fillColor:'#0f0', fillOpacity:0.5
+    }).addTo(map).bindPopup("You are here").openPopup();
+
+    fetchHospitals(userLat, userLon, 10000);
+    plotCustomHotspots();
+}
+
+// SEARCH PLACE
+function searchPlace(){
+    const place = document.getElementById('placeName').value;
+    if(!place) return alert("Enter place!");
+
+    axios.get(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(place)}&format=json`)
+    .then(res=>{
+        if(res.data.length === 0) return alert("Not found");
+        const loc = res.data[0];
+
+        userLat = parseFloat(loc.lat);
+        userLon = parseFloat(loc.lon);
+
+        localStorage.setItem("userLat", userLat);
+        localStorage.setItem("userLon", userLon);
+
+        showUserLocation();
+        getWeather(userLat, userLon);
+    });
+}
+
+// FETCH HOSPITALS
+function fetchHospitals(lat, lon, radius){
+    const overpass = `
+https://overpass-api.de/api/interpreter?data=
+[out:json];
+(
+  node["amenity"="hospital"](around:${radius},${lat},${lon});
+  node["healthcare"="hospital"](around:${radius},${lat},${lon});
+);
+out center;`;
+
+    axios.get(overpass).then(res=>{
+        const hospitals = res.data.elements;
+
+        hospitals.forEach(h=>{
+            L.marker([h.lat, h.lon]).addTo(map)
+            .bindPopup(`<b>${h.tags.name || "Hospital"}</b><br>
+                <button onclick="drawRoute(${h.lat},${h.lon})">Show Route</button>`);
+        });
+    });
+}
+
+/* ------------------------------------
+   2) PLOT CUSTOM HOTSPOTS ON MAP
+--------------------------------------*/
+function plotCustomHotspots(){
+    customHotspots.forEach(h=>{
+        L.marker([h.lat, h.lon], {icon: L.icon({iconUrl:"https://cdn-icons-png.flaticon.com/512/854/854878.png", iconSize:[30,30]})})
+        .addTo(map)
+        .bindPopup(`
+            <b>${h.name}</b><br>
+            📍 Lat: ${h.lat}<br>
+            📍 Lon: ${h.lon}<br><br>
+            <button onclick="drawRoute(${h.lat},${h.lon})">Show Route</button>
+        `);
+    });
+}
+
+// ROUTE DRAWING
+function drawRoute(lat, lon){
+    if(currentRoute) map.removeControl(currentRoute);
+
+    currentRoute = L.Routing.control({
+        waypoints:[
+            L.latLng(userLat, userLon),
+            L.latLng(lat, lon)
+        ],
+        draggableWaypoints:false,
+        addWaypoints:false,
+        show:false
+    }).addTo(map);
+}
+
+// START
+locateUser();
+</script>
+
+</body>
+</html>

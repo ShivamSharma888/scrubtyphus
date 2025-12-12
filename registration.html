@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STAR App – Registration</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #e3f3ff; /* Light Sky Blue */
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header {
+      background: #1a73e8; 
+      padding: 18px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .back-btn {
+      background: white;
+      color: #1a73e8;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 2px solid white;
+    }
+
+    .back-btn:hover {
+      background: transparent;
+      color: white;
+      border-color: white;
+    }
+
+    .register-box {
+      background: white;
+      margin: 40px auto;
+      padding: 30px;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn-primary {
+      background: #1a73e8;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: #1559b3;
+    }
+
+    label {
+      font-weight: 500;
+    }
+     #otpSection { display: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    STAR
+    <a href="index.html" class="back-btn">Back</a>
+  </div>
+
+  <!-- Registration Form -->
+  <div class="register-box">
+    <h3 class="text-center mb-4" style="color:#1a73e8;">Registration Form</h3>
+
+    <form id="registrationForm">
+
+      <div class="mb-3">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter full name" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="age">Age:</label>
+        <input type="number" class="form-control" id="age" placeholder="Enter age" min="0" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="gender">Gender:</label>
+        <select class="form-select" id="gender" required>
+          <option value="" disabled selected>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="village">Village/Town:</label>
+        <input type="text" class="form-control" id="village" placeholder="Enter village/town" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="tehsil">Tehsil:</label>
+        <input type="text" class="form-control" id="tehsil" placeholder="Enter tehsil" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="district">District:</label>
+        <input type="text" class="form-control" id="district" placeholder="Enter district" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="occupation">Occupation:</label>
+        <select class="form-select" id="occupation" required>
+          <option value="" disabled selected>Select occupation</option>
+          <option value="Farmer">Farmer</option>
+          <option value="Student">Student</option>
+          <option value="Employee">Employee</option>
+          <option value="Housewife">Housewife</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="activities">Activities:</label>
+        <select class="form-select" id="activities" required>
+          <option value="" disabled selected>Select activity type</option>
+          <option value="Indoor">Indoor</option>
+          <option value="Outdoor">Outdoor</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="travelling">Travelling:</label>
+        <select class="form-select" id="travelling" required>
+          <option value="" disabled selected>Select travelling frequency</option>
+          <option value="Rare">Rare</option>
+          <option value="Frequent">Frequent</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label>Pet Information:</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pet" id="petYes" value="Yes">
+          <label class="form-check-label" for="petYes">Yes</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pet" id="petNo" value="No" checked>
+          <label class="form-check-label" for="petNo">No</label>
+        </div>
+        <input type="text" class="form-control mt-2" id="petDetails" placeholder="If yes, specify (dog, cat, etc.)" disabled>
+      </div>
+
+      <div class="mb-3">
+        <label for="diagnosed">Earlier diagnosed for Scrub Typhus:</label>
+        <select class="form-select" id="diagnosed" required>
+          <option value="" disabled selected>Choose</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="aware">Aware about Scrub Typhus disease:</label>
+        <select class="form-select" id="aware" required>
+          <option value="" disabled selected>Choose</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </form>
+  </div>
+    <!-- OTP Section -->
+  <div id="otpSection" class="mt-4">
+    <label for="otp">Enter OTP:</label>
+    <input type="text" id="otpInput" class="form-control" placeholder="Enter OTP">
+    <div class="d-grid mt-3">
+      <button id="verifyOtpBtn" class="btn btn-success">Verify OTP</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const registrationForm = document.getElementById('registrationForm');
+const otpSection = document.getElementById('otpSection');
+let generatedOtp = '';
+
+registrationForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const phone = document.getElementById('phone').value;
+  if(!phone) { alert('Phone number is required'); return; }
+
+  // Simulate backend OTP generation
+  generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+  alert("OTP Sent to " + phone + ": " + generatedOtp); // For demo purposes
+
+  // Hide registration form and show OTP input
+  registrationForm.style.display = 'none';
+  otpSection.style.display = 'block';
+});
+
+document.getElementById('verifyOtpBtn').addEventListener('click', function() {
+  const enteredOtp = document.getElementById('otpInput').value;
+  if(enteredOtp === generatedOtp) {
+    alert("OTP Verified! Registration Successful 🎉");
+    // You can now send full registration data to backend
+    window.location.href = "index.html";
+  } else {
+    alert("Incorrect OTP! Please try again.");
+  }
+});
+</script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Enable pet details input if Yes selected
+    const petYes = document.getElementById('petYes');
+    const petNo = document.getElementById('petNo');
+    const petDetails = document.getElementById('petDetails');
+
+    petYes.addEventListener('change', () => { petDetails.disabled = false; });
+    petNo.addEventListener('change', () => { petDetails.disabled = true; petDetails.value = ''; });
+
+    // Form submit
+    document.getElementById("registrationForm").addEventListener("submit", function(event){
+      event.preventDefault();
+
+      // Collect data
+      const formData = {
+        name: document.getElementById('name').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        village: document.getElementById('village').value,
+        tehsil: document.getElementById('tehsil').value,
+        district: document.getElementById('district').value,
+        occupation: document.getElementById('occupation').value,
+        activities: document.getElementById('activities').value,
+        travelling: document.getElementById('travelling').value,
+        pet: document.querySelector('input[name="pet"]:checked').value,
+        petDetails: document.getElementById('petDetails').value,
+        diagnosed: document.getElementById('diagnosed').value,
+        aware: document.getElementById('aware').value
+      };
+
+      console.log("Registration Data:", formData);
+
+      alert("Registration Successful! 🎉");
+      // Redirect to home page (optional)
+      // window.location.href = "index.html"; 
+    });
+  </script>
+
+</body>
+</html>

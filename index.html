@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STAR - Scrub Typhus Prediction System</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --blue: #00aaff;
+            --dark-blue: #0077cc;
+            --light-blue: #e8f7ff;
+            --text-dark: #003049;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* NAVBAR */
+        nav {
+            width: 100%;
+            background: var(--blue);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 18px rgba(0,0,0,0.2);
+            flex-wrap: wrap; /* Make responsive */
+        }
+
+        nav .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.7;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(to right, #ccecff, #e0f7ff);
+            padding: 50px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .hero-text h1 {
+            font-size: 2.6rem;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: #333;
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .hero img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-top: 40px;
+        }
+
+        /* FEATURES */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 30px 15px;
+        }
+
+        .feature-box {
+            width: 100%;
+            max-width: 300px;
+            background: var(--light-blue);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-box img {
+            width: 70px;
+            margin-bottom: 10px;
+        }
+
+        /* MAP */
+        #map {
+            width: 90%;
+            height: 380px;
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0px 6px 20px rgba(0,0,0,0.22);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark-blue);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 25px;
+        }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px;
+                text-align: center;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            #map {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.9rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .feature-box {
+                width: 100%;
+            }
+
+            #map {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="logo">STAR</div>
+
+        <ul>
+            <li><a href="nearby.html">Hotspots</a></li>
+            <li><a href="about.html">Features</a></li>
+            <li><a href="self_assessment.html">Assessment</a></li>
+            <li><a href="prediction.html">Prediction</a></li>
+            <li><a href="nearby.html">Hospitals</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Track. Predict. Stay Safe.</h1>
+            <p>STAR provides real-time Scrub Typhus case monitoring, climate-based predictions, symptom assessment & nearby medical help — all in one platform.</p>
+        </div>
+
+        <img src="https://i.ibb.co/fQgxHk5/scrub-typhus-vector.jpg" alt="Scrub Typhus Medical">
+    </section>
+
+    <!-- FEATURES -->
+    <h2 class="section-title">Core Features</h2>
+
+    <div class="features">
+        <div class="feature-box">
+            <img src="https://i.ibb.co/N1Dm3xx/symptoms.png" alt="">
+            <h3>Self Assessment</h3>
+            <p>Check your symptoms and exposure level instantly.</p>
+        </div>
+
+        <div class="feature-box">
+            <img src="https://i.ibb.co/XxZw8Zq/prediction.png" alt="">
+            <h3>Climate-based Predictions</h3>
+            <p>AI-powered prediction system built for outbreaks.</p>
+        </div>
+
+        <div class="feature-box">
+            <img src="https://i.ibb.co/zJ19mHd/hospital.png" alt="">
+            <h3>Nearby Hospitals</h3>
+            <p>Find nearest hospitals & emergency care instantly.</p>
+        </div>
+    </div>
+
+    <!-- MAP -->
+    <h2 class="section-title">Scrub Typhus Hotspots (India)</h2>
+    <div id="map"></div>
+
+    <footer>© 2025 STAR — Scrub Typhus Prediction System</footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        const map = L.map('map').setView([20.59, 78.96], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        const hotspots = [
+            {lat: 31.1048, lng: 77.1734, city: "Himachal Pradesh", cases: 120},
+            {lat: 28.7041, lng: 77.1025, city: "Delhi", cases: 55},
+            {lat: 25.0961, lng: 85.3131, city: "Bihar", cases: 41},
+            {lat: 23.2599, lng: 77.4126, city: "Bhopal", cases: 22},
+        ];
+
+        hotspots.forEach(p => {
+            L.marker([p.lat, p.lng]).addTo(map)
+              .bindPopup(`<b>${p.city}</b><br>Cases: ${p.cases}`);
+        });
+
+        map.locate({setView: true, maxZoom: 12});
+        map.on('locationfound', e => {
+            L.marker(e.latlng).addTo(map).bindPopup("You are here").openPopup();
+        });
+    </script>
+
+</body>
+</html>

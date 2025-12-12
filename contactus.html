@@ -1,0 +1,258 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - STAR</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #f0f8ff;
+            color: #333;
+        }
+
+        /* ============================
+           FIXED HEADER (NO HAMBURGER)
+        ============================ */
+        nav {
+            width: 100%;
+            background: #1e90ff;
+            color: white;
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================
+              CONTACT SECTION
+        ============================ */
+        .contact-section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 35px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 35px;
+        }
+
+        .contact-info, .contact-form {
+            flex: 1 1 420px;
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
+            color: #1e90ff;
+            margin-bottom: 20px;
+            font-size: 1.7rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        .contact-info i {
+            color: #1e90ff;
+            margin-right: 10px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #1e90ff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(30,144,255,0.5);
+        }
+
+        .contact-form button {
+            padding: 12px 20px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #0b3d91;
+        }
+
+        #responseMessage {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: center;
+            color: green;
+        }
+
+        /* ============================
+                  FOOTER
+        ============================ */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e90ff;
+            color: white;
+            margin-top: 50px;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                text-align: center;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            .faq-section {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+
+            .faq-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav .logo {
+                font-size: 24px;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+            }
+
+            .faq-section {
+                padding: 15px;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+            }
+        }
+
+            .contact-section {
+                padding: 25px;
+            }
+        
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR (Same as Other Pages) -->
+    <nav>
+        <div class="logo">STAR</div>
+
+        <ul>
+            <li><a href="nearby.html">Hotspots</a></li>
+            <li><a href="about.html">Features</a></li>
+            <li><a href="self_assessment.html">Assessment</a></li>
+            <li><a href="prediction.html">Prediction</a></li>
+            <li><a href="nearby.html">Hospitals</a></li>
+        </ul>
+    </nav>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="contact-info">
+            <h2>Contact Information</h2>
+            <p><i class="fas fa-map-marker-alt"></i> IIT Mandi Region, Himachal Pradesh</p>
+            <p><i class="fas fa-phone-alt"></i> +91 86288 44890</p>
+            <p><i class="fas fa-envelope"></i> support@star-health.in</p>
+            <p><i class="fas fa-globe"></i> www.star-scrubtyphus.in</p>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+
+            <form id="contactForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="text" id="subject" placeholder="Subject" required>
+                <textarea id="message" rows="6" placeholder="Your Message" required></textarea>
+                
+                <button type="submit">Send Message</button>
+                <p id="responseMessage"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 STAR - Scrub Typhus Prediction System
+    </footer>
+
+    <!-- FORM LOGIC -->
+    <script>
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            document.getElementById('responseMessage').textContent =
+                "Thank you! Your message has been sent successfully.";
+
+            form.reset();
+        });
+    </script>
+
+</body>
+</html>

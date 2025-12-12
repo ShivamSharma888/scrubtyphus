@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Assessment - STAR</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #f0f8ff;
+            color: #333;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            background: #1e90ff;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Assessment Section */
+        .assessment-section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .assessment-section h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1e90ff;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question label {
+            font-weight: 500;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .question input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            display: block;
+            margin: 30px auto 10px auto;
+            padding: 12px 20px;
+            background: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #0b3d91;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #1e90ff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e90ff;
+            color: white;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .assessment-section h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <span class="logo">STAR</span>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="nearby.html">Nearby Case Tracker</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="self_assessment.html">Online Assessment</a></li>
+            <li><a href="prediction.html">Prediction System</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Self Assessment Section -->
+    <section class="assessment-section">
+        <h1>Scrub Typhus Self Assessment</h1>
+        <form id="assessmentForm">
+            <!-- Question 1 -->
+            <div class="question">
+                <label>1. Do you have a fever?</label>
+                <input type="radio" name="q1" value="10" required> Yes
+                <input type="radio" name="q1" value="0"> No
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question">
+                <label>2. Do you have cough?</label>
+                <input type="radio" name="q2" value="10" required> Yes
+                <input type="radio" name="q2" value="0"> No
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question">
+                <label>3. Do you have abdominal discomfort?</label>
+                <input type="radio" name="q3" value="10" required> Yes
+                <input type="radio" name="q3" value="0"> No
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question">
+                <label>4. Do you have a rash?</label>
+                <input type="radio" name="q4" value="10" required> Yes
+                <input type="radio" name="q4" value="0"> No
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question">
+                <label>5. Have you been exposed to dense vegetation or bushes recently?</label>
+                <input type="radio" name="q5" value="10" required> Yes
+                <input type="radio" name="q5" value="0"> No
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question">
+                <label>6. Have you noticed any eschar (dark scab) on the skin?</label>
+                <input type="radio" name="q6" value="10" required> Yes
+                <input type="radio" name="q6" value="0"> No
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question">
+                <label>7. Are you feeling fatigue or weakness?</label>
+                <input type="radio" name="q7" value="10" required> Yes
+                <input type="radio" name="q7" value="0"> No
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question">
+                <label>8. Do you have chills?</label>
+                <input type="radio" name="q8" value="10" required> Yes
+                <input type="radio" name="q8" value="0"> No
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question">
+                <label>9. Have you recently traveled to areas known for Scrub Typhus outbreaks?</label>
+                <input type="radio" name="q9" value="10" required> Yes
+                <input type="radio" name="q9" value="0"> No
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question">
+                <label>10. Do you have eschar [A dark, scrab-like region on the skin caused by mile bite] (yes/no)?</label>
+                <input type="radio" name="q10" value="10" required> Yes
+                <input type="radio" name="q10" value="0"> No
+            </div>
+
+            <button type="submit">Calculate Risk</button>
+        </form>
+
+        <div id="result"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 STAR - Scrub Typhus Prediction System
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        document.getElementById('assessmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let totalScore = 0;
+            for(let i=1; i<=10; i++) {
+                const options = document.getElementsByName('q'+i);
+                for(const opt of options) {
+                    if(opt.checked) {
+                        totalScore += parseInt(opt.value);
+                    }
+                }
+            }
+
+            // Risk percent calculation (max score = 100)
+            const riskPercent = totalScore;
+
+            let riskMessage = "";
+            if(riskPercent >= 70) {
+                riskMessage = `High Risk: ${riskPercent}% chance of Scrub Typhus. Please consult a doctor immediately.`;
+            } else if(riskPercent >= 40) {
+                riskMessage = `Moderate Risk: ${riskPercent}% chance. Take precautions and monitor your symptoms.`;
+            } else {
+                riskMessage = `Low Risk: ${riskPercent}% chance. Maintain hygiene and avoid exposure to vectors.`;
+            }
+
+            document.getElementById('result').innerText = riskMessage;
+        });
+    </script>
+
+</body>
+</html>

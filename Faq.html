@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - STAR</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --blue: #00aaff;
+            --dark-blue: #0077cc;
+            --light-blue: #e8f7ff;
+            --text-dark: #003049;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background: #f5faff;
+            color: #333;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: var(--blue);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        }
+
+        nav .logo {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            opacity: .7;
+        }
+
+        /* FAQ Container */
+        .faq-section {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+        }
+
+        .faq-section h1 {
+            text-align: center;
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+
+        .faq-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            padding-right: 20px;
+        }
+
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 0;
+            top: 0;
+            font-size: 20px;
+            color: var(--dark-blue);
+            transition: 0.3s;
+        }
+
+        .faq-question.active::after {
+            content: "-";
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding-left: 10px;
+            transition: max-height 0.35s ease;
+        }
+
+        .faq-answer p {
+            font-size: 0.95rem;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark-blue);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            nav {
+                text-align: center;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            .faq-section {
+                margin: 30px 15px;
+                padding: 20px;
+            }
+
+            .faq-section h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav .logo {
+                font-size: 24px;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+            }
+
+            .faq-section {
+                padding: 15px;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">STAR</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="nearby.html">Nearby Cases</a></li>
+            <li><a href="self_assessment.html">Assessment</a></li>
+            <li><a href="prediction.html">Prediction</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contactUS.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq-item">
+            <div class="faq-question">What is Scrub Typhus?</div>
+            <div class="faq-answer">
+                <p>Scrub Typhus is caused by the bacteria <i>Orientia tsutsugamushi</i>, transmitted through infected chigger mites.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How does it spread?</div>
+            <div class="faq-answer">
+                <p>It spreads through bites of infected chiggers. It does NOT spread from person to person.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What are the symptoms?</div>
+            <div class="faq-answer">
+                <p>Fever, rash, headache, body ache, and sometimes stomach issues.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How can I prevent Scrub Typhus?</div>
+            <div class="faq-answer">
+                <p>Wear covered clothes, use insect repellent, avoid bushy areas, and check for mites after outdoor activities.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Where can I find medical help?</div>
+            <div class="faq-answer">
+                <p>You can find nearby hospitals using the STAR map feature under the “Nearby Cases” section.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 STAR — Scrub Typhus Prediction System
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+        const questions = document.querySelectorAll('.faq-question');
+
+        questions.forEach(q => {
+            q.addEventListener('click', () => {
+                q.classList.toggle('active');
+
+                const answer = q.nextElementSibling;
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

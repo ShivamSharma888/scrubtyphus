@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - STAR</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: #f0f8ff;
+            color: #333;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            background: #1e90ff;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* About Section */
+        .about-section {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            line-height: 1.8;
+        }
+
+        .about-section h1 {
+            font-size: 3rem;
+            color: #1e90ff;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .about-section p {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .about-section strong {
+            color: #1e90ff;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #1e90ff;
+            color: white;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .about-section h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-section p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <span class="logo">STAR</span>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="nearby.html">Nearby Case Tracker</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="self_assessment.html">Online Assessment</a></li>
+            <li><a href="prediction.html">Prediction System</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <h1>About STAR</h1>
+        <p>
+            <strong>STAR</strong> (Scrub Typhus Awareness & Risk Prediction) is a comprehensive platform designed to raise awareness, provide information, and help track Scrub Typhus cases effectively. Our mission is to empower individuals, communities, and healthcare professionals with accurate and real-time data to prevent the spread of Scrub Typhus.
+        </p>
+        <p>
+            Scrub Typhus is a serious infectious disease caused by the <strong>Orientia tsutsugamushi</strong> bacteria. It is transmitted to humans through chigger bites, often found in areas with dense vegetation. Early detection and preventive measures are crucial, and STAR provides tools to do exactly that.
+        </p>
+        <p>
+            The STAR platform offers the following key features:
+            <ul>
+                <li><strong>Nearby Case Tracker:</strong> Visualize current Scrub Typhus hotspots using an interactive map.</li>
+                <li><strong>Online Assessment:</strong> Take a self-assessment to evaluate your risk based on symptoms and exposure.</li>
+                <li><strong>Prediction System:</strong> Forecast potential outbreaks in your area using climate and historical data.</li>
+                <li><strong>Contact & Support:</strong> Find nearby hospitals and communicate with healthcare professionals quickly.</li>
+            </ul>
+        </p>
+        <p>
+            STAR is fully mobile-friendly, ensuring accessibility on smartphones, tablets, and desktops. Our goal is to combine awareness, technology, and actionable data to help reduce the impact of Scrub Typhus globally.
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2025 STAR - Scrub Typhus Prediction System
+    </footer>
+
+</body>
+</html>
